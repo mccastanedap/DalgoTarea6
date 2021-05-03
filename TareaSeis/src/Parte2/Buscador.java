@@ -1,46 +1,50 @@
 package Parte2;
 
-import java.util.Stack;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Buscador {
 	
 	private int[] marked;
 	
-	private Stack<Integer> components;
+	private Queue<Integer> components;
 	
 	public Buscador() {
 		marked = new int[Main.grafo.length];
-		components = new Stack<Integer>();
+		components = new LinkedList<Integer>();
 	}
 	
 	public void colorear() {
 		for(int i = 0; i<marked.length; i+=1) {
 			if(marked[i] == 0) {
-				components.push(-1);
-				Stack<Integer> pila = new Stack<Integer>();
-				pila.push(i);
+				Queue<Integer> pila = new LinkedList<Integer>();
+				pila.add(i);
 				while(!pila.isEmpty()) {
-					int actual = pila.pop();
-					components.push(actual);
+					int actual = pila.remove();
 					if(marked[actual] == 0) {
+						components.add(actual);
 						marked[actual] = i+1;
 						for(int x = 0; x<marked.length; x++) {
 							if(Main.grafo[actual][x] >= 0 && marked[x] == 0)
-								pila.push(x);
+								pila.add(x);
 						}
 					}
 				}
+				components.add(-1);
 			}
 		}
 	}
 	
 	public void imprimir() {
-		while(!components.isEmpty()) {
-			int vertice = components.pop();
+		while(components.size() > 0) {
+			int vertice = components.remove();
 			System.out.print("Componente: ");
 			while(vertice!=-1) {
 				System.out.print(vertice + " ");
-				vertice = components.pop();
+				if(components.size() > 0)
+					vertice = components.remove();
+				else
+					break;
 			}
 			System.out.println();
 		}

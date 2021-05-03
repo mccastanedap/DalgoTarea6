@@ -1,0 +1,5 @@
+Para probar los metodos:
+Los algoritmos de Dijkstra,
+Bellman Ford y Floyd Warschall estan en sus clases que llevan sus nombres.
+Para correrlos, en consola se despliega que debes escoger entre un numero de uno al 6 el cual significa que txt quieres correr.
+Este imprimira el tiempo que se demora y la matriz.
